@@ -1,0 +1,291 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════
+   AURA JEWELLERY — Luxury Dark Theme
+   ═══════════════════════════════════════════════ */
+
+:root {
+  /* Core palette */
+  --bg-primary: #0B0706;
+  --bg-secondary: #110E0C;
+  --bg-card: #1A1412;
+  --bg-card-hover: #221C18;
+  --bg-elevated: #2A2220;
+
+  /* Gold spectrum */
+  --gold-50: #FFF8E7;
+  --gold-100: #F5E6C8;
+  --gold-200: #E8D5A3;
+  --gold-300: #D4A853;
+  --gold-400: #C9952E;
+  --gold-500: #B8860B;
+  --gold-600: #8B6914;
+  --gold-700: #6B4F0E;
+
+  /* Accent colors */
+  --ruby: #9B1B30;
+  --ruby-light: #D4536A;
+  --emerald: #1B6B3A;
+  --emerald-light: #2EAF5E;
+  --burgundy: #5C0A1A;
+  --cream: #F5E6C8;
+
+  /* Text */
+  --text-primary: #F5E6C8;
+  --text-secondary: #A09080;
+  --text-muted: #6B5E52;
+
+  /* Typography */
+  --font-display: 'Cinzel', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-accent: 'Cormorant Garamond', serif;
+  --font-tamil: 'Noto Sans Tamil', sans-serif;
+}
+
+/* Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* Tamil text */
+.font-tamil {
+  font-family: var(--font-tamil);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-accent {
+  font-family: var(--font-accent);
+}
+
+/* ═══ Scrollbar ═══ */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--gold-700);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-500);
+}
+
+/* ═══ Gold Shimmer Animation ═══ */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.gold-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--gold-500) 0%,
+    var(--gold-300) 25%,
+    var(--gold-50) 50%,
+    var(--gold-300) 75%,
+    var(--gold-500) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s linear infinite;
+}
+
+/* ═══ Ornate Border Pattern ═══ */
+.ornate-border {
+  position: relative;
+}
+.ornate-border::before,
+.ornate-border::after {
+  content: '◆ ─── ✦ ─── ◆';
+  display: block;
+  text-align: center;
+  color: var(--gold-600);
+  font-size: 12px;
+  letter-spacing: 8px;
+  opacity: 0.6;
+  padding: 12px 0;
+}
+
+/* ═══ Decorative Divider ═══ */
+.temple-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  opacity: 0.4;
+}
+.temple-divider::before,
+.temple-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-500), transparent);
+}
+
+/* ═══ Card Glow on Hover ═══ */
+.card-glow {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card-glow:hover {
+  box-shadow:
+    0 0 20px rgba(212, 168, 83, 0.15),
+    0 0 40px rgba(212, 168, 83, 0.08),
+    0 20px 60px rgba(0, 0, 0, 0.4);
+  transform: translateY(-4px);
+}
+
+/* ═══ Product Image Placeholder ═══ */
+.product-placeholder {
+  position: relative;
+  overflow: hidden;
+}
+.product-placeholder::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 40%, rgba(212, 168, 83, 0.15) 0%, transparent 70%),
+    radial-gradient(circle at 50% 60%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* ═══ Floating WhatsApp Button ═══ */
+.whatsapp-float {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 100;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #25D366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
+}
+
+/* ═══ Tag Pills ═══ */
+.tag-pill {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid var(--gold-700);
+  color: var(--gold-300);
+  background: rgba(212, 168, 83, 0.05);
+}
+
+/* ═══ Section background texture ═══ */
+.texture-overlay {
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(92, 10, 26, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 50%, rgba(27, 107, 58, 0.05) 0%, transparent 50%);
+}
+
+/* ═══ Hero decorative pattern ═══ */
+.hero-pattern {
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 35px,
+      rgba(212, 168, 83, 0.03) 35px,
+      rgba(212, 168, 83, 0.03) 36px
+    );
+}
+
+/* ═══ Badge styles ═══ */
+.badge-new {
+  background: linear-gradient(135deg, var(--emerald), var(--emerald-light));
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 4px 12px;
+  border-radius: 4px;
+}
+.badge-bestseller {
+  background: linear-gradient(135deg, var(--ruby), var(--ruby-light));
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 4px 12px;
+  border-radius: 4px;
+}
+
+/* ═══ Grain texture ═══ */
+.grain::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ═══ Responsive ═══ */
+@media (max-width: 768px) {
+  .ornate-border::before,
+  .ornate-border::after {
+    font-size: 8px;
+    letter-spacing: 4px;
+  }
+}
+
+/* ═══ Payment icons area ═══ */
+.payment-methods {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.payment-badge {
+  padding: 4px 12px;
+  border: 1px solid var(--gold-700);
+  border-radius: 4px;
+  font-size: 11px;
+  color: var(--gold-300);
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+
+/* ═══ Selection color ═══ */
+::selection {
+  background: var(--gold-500);
+  color: var(--bg-primary);
+}
