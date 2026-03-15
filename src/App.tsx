@@ -83,8 +83,10 @@ export default function App() {
         >
           <button onClick={() => setActiveCategory('all')} className="hover:text-[var(--gold-300)] transition-colors">{t.nav.home}</button>
           <button onClick={() => setActiveCategory('bridalSets')} className="hover:text-[var(--gold-300)] transition-colors">{t.nav.bridalSets}</button>
+          <button onClick={() => setActiveCategory('victorianSets')} className="hover:text-[var(--gold-300)] transition-colors">{t.nav.victorianSets}</button>
           <button onClick={() => setActiveCategory('templeJewelry')} className="hover:text-[var(--gold-300)] transition-colors">{t.nav.templeJewelry}</button>
           <button onClick={() => setActiveCategory('beadNecklaces')} className="hover:text-[var(--gold-300)] transition-colors">{t.nav.beadNecklaces}</button>
+          <button onClick={() => setActiveCategory('accessories')} className="hover:text-[var(--gold-300)] transition-colors">{t.nav.accessories}</button>
           <button onClick={() => {}} className="hover:text-[var(--gold-300)] transition-colors">{t.nav.about}</button>
         </div>
 
@@ -130,8 +132,10 @@ export default function App() {
               {[
                 { label: t.nav.home, cat: 'all' },
                 { label: t.nav.bridalSets, cat: 'bridalSets' },
+                { label: t.nav.victorianSets, cat: 'victorianSets' },
                 { label: t.nav.templeJewelry, cat: 'templeJewelry' },
                 { label: t.nav.beadNecklaces, cat: 'beadNecklaces' },
+                { label: t.nav.accessories, cat: 'accessories' },
                 { label: t.nav.about, cat: null },
                 { label: t.nav.contact, cat: null },
               ].map((item, i) => (
@@ -319,7 +323,7 @@ export default function App() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3">
               {Object.entries(t.categories).map(([key, label]) => {
                 const isActive = activeCategory === key;
                 return (
@@ -536,7 +540,7 @@ export default function App() {
                 {t.footer.quickLinks}
               </h4>
               <ul className="space-y-2.5">
-                {[t.nav.home, t.nav.bridalSets, t.nav.templeJewelry, t.nav.beadNecklaces, t.nav.about].map((link) => (
+                {[t.nav.home, t.nav.bridalSets, t.nav.victorianSets, t.nav.templeJewelry, t.nav.beadNecklaces, t.nav.accessories, t.nav.about].map((link) => (
                   <li key={link}>
                     <a href="#" className="text-[12px] hover:text-[var(--gold-300)] transition-colors" style={{ color: 'var(--text-secondary)', fontFamily: lang === 'ta' ? 'var(--font-tamil)' : 'var(--font-body)' }}>
                       {link}
