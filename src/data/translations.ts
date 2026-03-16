@@ -92,6 +92,21 @@ export const translations = {
       paymentMethods: "We Accept",
       copyright: "© 2026 Aura Jewellery. All Rights Reserved.",
     },
+    hero: {
+      cta: "SHOP COLLECTION",
+      scrollHint: "Scroll to explore",
+    },
+    story: {
+      quote: "Every piece tells a story of South Indian heritage",
+      craftTitle: "Handcrafted with Love in Chennai",
+      craftDescription: "Each piece is meticulously crafted by skilled artisans carrying forward generations of South Indian jewellery-making tradition.",
+      quickView: "Quick View",
+    },
+    drawer: {
+      about: "About",
+      shippingPolicy: "Shipping Policy",
+      contact: "Contact Us",
+    },
     whatsapp: {
       tooltip: "Chat with us!",
       message: "Hi! I'm interested in your jewellery collection. Can you help me?",
@@ -189,6 +204,21 @@ export const translations = {
       terms: "விதிமுறைகள்",
       paymentMethods: "நாங்கள் ஏற்றுக்கொள்வோம்",
       copyright: "© 2026 ஔரா ஜுவல்லரி. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.",
+    },
+    hero: {
+      cta: "தொகுப்பைக் காண",
+      scrollHint: "ஸ்க்ரோல் செய்யவும்",
+    },
+    story: {
+      quote: "ஒவ்வொரு நகையும் தென்னிந்திய பாரம்பரியத்தின் கதையைச் சொல்கிறது",
+      craftTitle: "சென்னையில் அன்புடன் கைவினையாக செய்யப்பட்டது",
+      craftDescription: "ஒவ்வொரு நகையும் தென்னிந்திய நகை தயாரிப்பு பாரம்பரியத்தை முன்னெடுக்கும் திறமையான கைவினைஞர்களால் உருவாக்கப்படுகிறது.",
+      quickView: "விரைவாகக் காண",
+    },
+    drawer: {
+      about: "எங்களைப் பற்றி",
+      shippingPolicy: "ஷிப்பிங் கொள்கை",
+      contact: "தொடர்பு கொள்ளுங்கள்",
     },
     whatsapp: {
       tooltip: "எங்களுடன் பேசுங்கள்!",

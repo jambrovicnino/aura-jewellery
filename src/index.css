@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════════
-   AURA JEWELLERY — Luxury Dark Theme + Reactive
+   AURA JEWELLERY — Editorial Dark Theme
    ═══════════════════════════════════════════════ */
 
 :root {
@@ -96,107 +96,77 @@ body {
   animation: shimmer 4s linear infinite;
 }
 
-/* ═══ Ornate Border Pattern ═══ */
-.ornate-border { position: relative; }
-.ornate-border::before,
-.ornate-border::after {
-  content: '◆ ─── ✦ ─── ◆';
-  display: block;
-  text-align: center;
-  color: var(--gold-600);
-  font-size: 12px;
-  letter-spacing: 8px;
-  opacity: 0.6;
-  padding: 12px 0;
+/* ═══ Selection color ═══ */
+::selection {
+  background: var(--gold-500);
+  color: var(--bg-primary);
 }
 
-/* ═══ Decorative Divider ═══ */
-.temple-divider {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  opacity: 0.4;
+/* ═══ Scroll Indicator ═══ */
+@keyframes scroll-pulse {
+  0%, 100% { opacity: 0.4; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(8px); }
 }
-.temple-divider::before,
-.temple-divider::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold-500), transparent);
+.scroll-indicator { animation: scroll-pulse 2s ease-in-out infinite; }
+
+/* ═══ Slide-out Drawer ═══ */
+.drawer-overlay {
+  position: fixed; inset: 0; z-index: 140;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.drawer-panel {
+  position: fixed; top: 0; left: 0; bottom: 0;
+  width: 350px; max-width: 85vw;
+  z-index: 150;
+  background: var(--bg-secondary);
+  border-right: 1px solid rgba(212, 168, 83, 0.1);
+  overflow-y: auto;
 }
 
-/* ═══ Card Glow on Hover ═══ */
-.card-glow {
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.card-glow:hover {
-  box-shadow:
-    0 0 20px rgba(212, 168, 83, 0.15),
-    0 0 40px rgba(212, 168, 83, 0.08),
-    0 20px 60px rgba(0, 0, 0, 0.4);
-  transform: translateY(-8px);
-}
-
-/* ═══ Product Image with Hover Zoom ═══ */
-.product-image-wrapper {
-  position: relative;
-  overflow: hidden;
-}
-.product-image-wrapper img {
+/* ═══ Editorial Product Card ═══ */
+.editorial-card { position: relative; cursor: pointer; }
+.editorial-card img {
   transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.product-image-wrapper:hover img {
-  transform: scale(1.08);
+.editorial-card:hover img { transform: scale(1.03); }
+.editorial-card .quick-view {
+  opacity: 0; transition: opacity 0.3s;
 }
-.product-image-wrapper::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 60% 40% at 50% 40%, rgba(212, 168, 83, 0.1) 0%, transparent 70%);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.5s;
+.editorial-card:hover .quick-view { opacity: 1; }
+.editorial-card .wishlist-btn {
+  opacity: 0; transition: opacity 0.3s;
 }
-.product-image-wrapper:hover::after {
-  opacity: 1;
+.editorial-card:hover .wishlist-btn { opacity: 1; }
+
+/* ═══ Category Pills ═══ */
+.category-pill {
+  padding: 8px 20px;
+  border: 1px solid rgba(212, 168, 83, 0.2);
+  border-radius: 100px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-secondary);
+  background: transparent;
+  transition: all 0.3s;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.category-pill:hover {
+  border-color: var(--gold-400);
+  color: var(--gold-300);
+}
+.category-pill.active {
+  background: var(--gold-500);
+  border-color: var(--gold-500);
+  color: var(--bg-primary);
 }
 
-/* ═══ Product Placeholder (no image) ═══ */
-.product-placeholder {
-  position: relative;
-  overflow: hidden;
-}
-
-/* ═══ Badge Pulse ═══ */
-@keyframes badge-pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.06); }
-}
-.badge-new,
-.badge-bestseller {
-  animation: badge-pulse 2.5s ease-in-out infinite;
-}
-.badge-new {
-  background: linear-gradient(135deg, var(--emerald), var(--emerald-light));
-  color: white;
-  font-size: 10px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 4px 12px;
-  border-radius: 4px;
-}
-.badge-bestseller {
-  background: linear-gradient(135deg, var(--ruby), var(--ruby-light));
-  color: white;
-  font-size: 10px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 4px 12px;
-  border-radius: 4px;
-}
+/* ═══ Scrollbar Hide ═══ */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
 /* ═══ Wishlist Heart ═══ */
 @keyframes heart-pulse {
@@ -284,6 +254,21 @@ body {
   max-height: 80vh;
 }
 
+/* ═══ Smooth image zoom in lightbox ═══ */
+.lightbox-image-container {
+  overflow: hidden;
+  cursor: zoom-in;
+}
+.lightbox-image-container.zoomed {
+  cursor: zoom-out;
+}
+.lightbox-image-container img {
+  transition: transform 0.3s ease;
+}
+.lightbox-image-container.zoomed img {
+  transform: scale(2);
+}
+
 /* ═══ Skeleton Shimmer ═══ */
 @keyframes skeleton-shimmer {
   0% { background-position: -200% 0; }
@@ -299,22 +284,6 @@ body {
   background-size: 200% 100%;
   animation: skeleton-shimmer 1.5s infinite;
   border-radius: 6px;
-}
-
-/* ═══ Carousel Dots ═══ */
-.carousel-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--gold-700);
-  transition: all 0.3s;
-  cursor: pointer;
-  border: none;
-}
-.carousel-dot.active {
-  width: 24px;
-  border-radius: 4px;
-  background: var(--gold-300);
 }
 
 /* ═══ Floating WhatsApp Button ═══ */
@@ -357,93 +326,7 @@ body {
   border-color: var(--gold-500);
 }
 
-/* ═══ Section background texture ═══ */
-.texture-overlay {
-  background-image:
-    radial-gradient(ellipse at 20% 50%, rgba(92, 10, 26, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 50%, rgba(27, 107, 58, 0.05) 0%, transparent 50%);
-}
-
-/* ═══ Hero decorative pattern ═══ */
-.hero-pattern {
-  background-image:
-    repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 35px,
-      rgba(212, 168, 83, 0.03) 35px,
-      rgba(212, 168, 83, 0.03) 36px
-    );
-}
-
-/* ═══ Grain texture ═══ */
-.grain::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 9999;
-}
-
-/* ═══ Nav active underline ═══ */
-.nav-link {
-  position: relative;
-  padding-bottom: 4px;
-}
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background: var(--gold-300);
-  transition: width 0.3s ease;
-}
-.nav-link:hover::after,
-.nav-link.active::after {
-  width: 100%;
-}
-
-/* ═══ Category button active state ═══ */
-.category-btn {
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s ease;
-}
-.category-btn::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(212, 168, 83, 0.15), rgba(184, 134, 11, 0.05));
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-.category-btn.active::before {
-  opacity: 1;
-}
-.category-btn:hover::before {
-  opacity: 0.5;
-}
-
-/* ═══ Responsive ═══ */
-@media (max-width: 768px) {
-  .ornate-border::before,
-  .ornate-border::after {
-    font-size: 8px;
-    letter-spacing: 4px;
-  }
-}
-
-/* ═══ Payment icons area ═══ */
-.payment-methods {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  flex-wrap: wrap;
-}
+/* ═══ Payment Badge ═══ */
 .payment-badge {
   padding: 4px 12px;
   border: 1px solid var(--gold-700);
@@ -457,25 +340,4 @@ body {
 .payment-badge:hover {
   border-color: var(--gold-400);
   background: rgba(212, 168, 83, 0.08);
-}
-
-/* ═══ Selection color ═══ */
-::selection {
-  background: var(--gold-500);
-  color: var(--bg-primary);
-}
-
-/* ═══ Smooth image zoom in lightbox ═══ */
-.lightbox-image-container {
-  overflow: hidden;
-  cursor: zoom-in;
-}
-.lightbox-image-container.zoomed {
-  cursor: zoom-out;
-}
-.lightbox-image-container img {
-  transition: transform 0.3s ease;
-}
-.lightbox-image-container.zoomed img {
-  transform: scale(2);
 }
