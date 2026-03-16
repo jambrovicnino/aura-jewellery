@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useRef, useCallback, Fragment } from 'react';
+import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import {
   ShoppingBag, Menu, X, Globe, Heart, Phone, Mail, MapPin,
   ChevronRight, Shield, Truck, RotateCcw, CreditCard,
@@ -354,52 +354,54 @@ export default function App() {
       {/* 2. SLIDE-OUT DRAWER */}
       <AnimatePresence>
         {drawerOpen && (
-          <>
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              className="drawer-overlay" onClick={() => setDrawerOpen(false)} />
-            <motion.div initial={{ x: -350 }} animate={{ x: 0 }} exit={{ x: -350 }}
-              transition={{ type: 'tween', duration: 0.3 }} className="drawer-panel">
-              <div className="p-8">
-                {/* Close button */}
-                <button onClick={() => setDrawerOpen(false)} className="mb-8">
-                  <X size={22} style={{ color: 'var(--gold-300)' }} />
-                </button>
-                {/* Brand */}
-                <h2 className="text-sm tracking-[0.3em] uppercase mb-10" style={{ fontFamily: 'var(--font-display)', color: 'var(--gold-100)' }}>
-                  {t.shopName}
-                </h2>
-                {/* Category links */}
-                <div className="space-y-1">
-                  {categories.map(([key, label]) => {
-                    const count = key === 'all' ? products.length : products.filter(p => p.category === key).length;
-                    return (
-                      <button key={key} onClick={() => { setActiveCategory(key); setDrawerOpen(false); scrollToProducts(); }}
-                        className="w-full flex items-center justify-between py-3 text-sm tracking-wider transition-colors hover:text-[var(--gold-300)]"
-                        style={{ color: activeCategory === key ? 'var(--gold-300)' : 'var(--text-secondary)', fontFamily: 'var(--font-body)' }}>
-                        <span>{label}</span>
-                        <span className="text-xs" style={{ color: 'var(--text-muted)' }}>({count})</span>
-                      </button>
-                    );
-                  })}
-                </div>
-                {/* Divider */}
-                <div className="my-8 h-px" style={{ background: 'rgba(212,168,83,0.1)' }} />
-                {/* Secondary links */}
-                <div className="space-y-3">
-                  {[t.drawer.about, t.drawer.shippingPolicy, t.drawer.contact].map(link => (
-                    <button key={link} className="block text-sm tracking-wider" style={{ color: 'var(--text-muted)' }}>{link}</button>
-                  ))}
-                </div>
-                {/* Language at bottom */}
-                <div className="mt-12">
-                  <button onClick={() => { setLang(lang === 'en' ? 'ta' : 'en'); setDrawerOpen(false); }}
-                    className="flex items-center gap-2 text-sm" style={{ color: 'var(--text-secondary)' }}>
-                    <Globe size={14} /> {t.langSwitch}
-                  </button>
-                </div>
+          <motion.div key="drawer-overlay" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="drawer-overlay" onClick={() => setDrawerOpen(false)} />
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {drawerOpen && (
+          <motion.div key="drawer-panel" initial={{ x: -350 }} animate={{ x: 0 }} exit={{ x: -350 }}
+            transition={{ type: 'tween', duration: 0.3 }} className="drawer-panel">
+            <div className="p-8">
+              {/* Close button */}
+              <button onClick={() => setDrawerOpen(false)} className="mb-8">
+                <X size={22} style={{ color: 'var(--gold-300)' }} />
+              </button>
+              {/* Brand */}
+              <h2 className="text-sm tracking-[0.3em] uppercase mb-10" style={{ fontFamily: 'var(--font-display)', color: 'var(--gold-100)' }}>
+                {t.shopName}
+              </h2>
+              {/* Category links */}
+              <div className="space-y-1">
+                {categories.map(([key, label]) => {
+                  const count = key === 'all' ? products.length : products.filter(p => p.category === key).length;
+                  return (
+                    <button key={key} onClick={() => { setActiveCategory(key); setDrawerOpen(false); scrollToProducts(); }}
+                      className="w-full flex items-center justify-between py-3 text-sm tracking-wider transition-colors hover:text-[var(--gold-300)]"
+                      style={{ color: activeCategory === key ? 'var(--gold-300)' : 'var(--text-secondary)', fontFamily: 'var(--font-body)' }}>
+                      <span>{label}</span>
+                      <span className="text-xs" style={{ color: 'var(--text-muted)' }}>({count})</span>
+                    </button>
+                  );
+                })}
               </div>
-            </motion.div>
-          </>
+              {/* Divider */}
+              <div className="my-8 h-px" style={{ background: 'rgba(212,168,83,0.1)' }} />
+              {/* Secondary links */}
+              <div className="space-y-3">
+                {[t.drawer.about, t.drawer.shippingPolicy, t.drawer.contact].map(link => (
+                  <button key={link} className="block text-sm tracking-wider" style={{ color: 'var(--text-muted)' }}>{link}</button>
+                ))}
+              </div>
+              {/* Language at bottom */}
+              <div className="mt-12">
+                <button onClick={() => { setLang(lang === 'en' ? 'ta' : 'en'); setDrawerOpen(false); }}
+                  className="flex items-center gap-2 text-sm" style={{ color: 'var(--text-secondary)' }}>
+                  <Globe size={14} /> {t.langSwitch}
+                </button>
+              </div>
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
 
@@ -472,66 +474,64 @@ export default function App() {
 
           {/* 2-column editorial grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-14">
-            <AnimatePresence mode="popLayout">
-              {filteredProducts.map((product, i) => (
-                <Fragment key={product.id}>
-                  {/* Interstitial after 6th product */}
-                  {i === 6 && (
-                    <motion.div key="story-quote" layout className="col-span-full py-20 text-center"
-                      initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
-                      <p className="text-2xl md:text-4xl italic leading-relaxed max-w-3xl mx-auto"
-                        style={{ fontFamily: 'var(--font-accent)', color: 'var(--gold-300)' }}>
-                        &ldquo;{t.story.quote}&rdquo;
-                      </p>
-                    </motion.div>
-                  )}
-                  {/* Interstitial after 12th product */}
-                  {i === 12 && (
-                    <motion.div key="story-craft" layout className="col-span-full grid grid-cols-1 md:grid-cols-2 gap-12 py-16 items-center"
-                      initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
-                      <div>
-                        <h3 className="text-2xl md:text-3xl tracking-wider mb-4"
-                          style={{ fontFamily: lang === 'ta' ? 'var(--font-tamil)' : 'var(--font-display)', color: 'var(--gold-100)' }}>
-                          {t.story.craftTitle}
-                        </h3>
-                        <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)', fontFamily: lang === 'ta' ? 'var(--font-tamil)' : 'var(--font-body)' }}>
-                          {t.story.craftDescription}
-                        </p>
-                      </div>
-                      <div className="overflow-hidden rounded-sm" style={{ aspectRatio: '4/5' }}>
-                        <img src="/images/products/kemp-lakshmi-choker-set.jpeg" alt="Handcrafted jewellery" className="w-full h-full object-cover" />
-                      </div>
-                    </motion.div>
-                  )}
-                  {/* Interstitial after 18th product — trust bar */}
-                  {i === 18 && (
-                    <motion.div key="trust-bar" layout className="col-span-full flex flex-wrap justify-center gap-10 md:gap-16 py-14"
-                      initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
-                      {[
-                        { icon: Shield, label: t.trust.quality, desc: t.trust.qualityDesc },
-                        { icon: Truck, label: t.trust.shipping, desc: t.trust.shippingDesc },
-                        { icon: RotateCcw, label: t.trust.returns, desc: t.trust.returnsDesc },
-                        { icon: CreditCard, label: t.trust.payment, desc: t.trust.paymentDesc },
-                      ].map(({ icon: Icon, label, desc }) => (
-                        <div key={label} className="text-center">
-                          <Icon size={20} className="mx-auto mb-2" style={{ color: 'var(--gold-500)' }} />
-                          <p className="text-[11px] uppercase tracking-wider font-semibold" style={{ color: 'var(--gold-200)' }}>{label}</p>
-                          <p className="text-[10px] mt-1" style={{ color: 'var(--text-muted)' }}>{desc}</p>
-                        </div>
-                      ))}
-                    </motion.div>
-                  )}
-                  {/* Product card */}
-                  <motion.div layout initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95 }} transition={{ delay: i * 0.03, duration: 0.35 }}>
-                    <EditorialProductCard product={product} lang={lang} t={t}
-                      onImageClick={() => setLightboxProduct(product)}
-                      isWishlisted={wishlisted.has(product.id)}
-                      onWishlist={() => toggleWishlist(product.id)} />
+            {filteredProducts.map((product, i) => (
+              <div key={product.id} style={{ display: 'contents' }}>
+                {/* Interstitial after 6th product */}
+                {i === 6 && (
+                  <motion.div key="story-quote" className="col-span-full py-20 text-center"
+                    initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
+                    <p className="text-2xl md:text-4xl italic leading-relaxed max-w-3xl mx-auto"
+                      style={{ fontFamily: 'var(--font-accent)', color: 'var(--gold-300)' }}>
+                      &ldquo;{t.story.quote}&rdquo;
+                    </p>
                   </motion.div>
-                </Fragment>
-              ))}
-            </AnimatePresence>
+                )}
+                {/* Interstitial after 12th product */}
+                {i === 12 && (
+                  <motion.div key="story-craft" className="col-span-full grid grid-cols-1 md:grid-cols-2 gap-12 py-16 items-center"
+                    initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
+                    <div>
+                      <h3 className="text-2xl md:text-3xl tracking-wider mb-4"
+                        style={{ fontFamily: lang === 'ta' ? 'var(--font-tamil)' : 'var(--font-display)', color: 'var(--gold-100)' }}>
+                        {t.story.craftTitle}
+                      </h3>
+                      <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)', fontFamily: lang === 'ta' ? 'var(--font-tamil)' : 'var(--font-body)' }}>
+                        {t.story.craftDescription}
+                      </p>
+                    </div>
+                    <div className="overflow-hidden rounded-sm" style={{ aspectRatio: '4/5' }}>
+                      <img src="/images/products/kemp-lakshmi-choker-set.jpeg" alt="Handcrafted jewellery" className="w-full h-full object-cover" />
+                    </div>
+                  </motion.div>
+                )}
+                {/* Interstitial after 18th product — trust bar */}
+                {i === 18 && (
+                  <motion.div key="trust-bar" className="col-span-full flex flex-wrap justify-center gap-10 md:gap-16 py-14"
+                    initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
+                    {[
+                      { icon: Shield, label: t.trust.quality, desc: t.trust.qualityDesc },
+                      { icon: Truck, label: t.trust.shipping, desc: t.trust.shippingDesc },
+                      { icon: RotateCcw, label: t.trust.returns, desc: t.trust.returnsDesc },
+                      { icon: CreditCard, label: t.trust.payment, desc: t.trust.paymentDesc },
+                    ].map(({ icon: Icon, label, desc }) => (
+                      <div key={label} className="text-center">
+                        <Icon size={20} className="mx-auto mb-2" style={{ color: 'var(--gold-500)' }} />
+                        <p className="text-[11px] uppercase tracking-wider font-semibold" style={{ color: 'var(--gold-200)' }}>{label}</p>
+                        <p className="text-[10px] mt-1" style={{ color: 'var(--text-muted)' }}>{desc}</p>
+                      </div>
+                    ))}
+                  </motion.div>
+                )}
+                {/* Product card */}
+                <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }} transition={{ delay: (i % 2) * 0.1, duration: 0.4 }}>
+                  <EditorialProductCard product={product} lang={lang} t={t}
+                    onImageClick={() => setLightboxProduct(product)}
+                    isWishlisted={wishlisted.has(product.id)}
+                    onWishlist={() => toggleWishlist(product.id)} />
+                </motion.div>
+              </div>
+            ))}
           </div>
 
           {filteredProducts.length === 0 && (
