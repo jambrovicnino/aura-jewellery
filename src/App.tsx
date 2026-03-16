@@ -474,13 +474,13 @@ export default function App() {
             }} />
           </motion.div>
 
-          <div className="relative z-10 flex flex-col items-center justify-center px-6 py-16 md:py-20" style={{ minHeight: '80vh' }}>
+          <div className="relative z-10 flex flex-col items-center justify-center px-6 py-20 md:py-28" style={{ minHeight: '80vh' }}>
             {/* Top ornament */}
             <motion.div
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.5 }}
-              className="temple-divider w-48 mb-6"
+              className="temple-divider w-48 mb-8"
             >
               <Star size={12} style={{ color: 'var(--gold-500)' }} />
             </motion.div>
@@ -488,7 +488,7 @@ export default function App() {
             <motion.p
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              className="text-[11px] tracking-[0.4em] uppercase mb-4"
+              className="text-[11px] tracking-[0.4em] uppercase mb-5"
               style={{ color: 'var(--gold-500)', fontFamily: 'var(--font-body)' }}
             >
               {t.taglineSub}
@@ -498,7 +498,7 @@ export default function App() {
               initial={{ y: 30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.1 }}
-              className="text-4xl md:text-6xl lg:text-7xl leading-tight mb-3 gold-shimmer"
+              className="text-4xl md:text-6xl lg:text-7xl leading-tight mb-4 gold-shimmer"
               style={{ fontFamily: lang === 'ta' ? 'var(--font-tamil)' : 'var(--font-display)', fontWeight: 600 }}
             >
               {t.shopName}
@@ -508,7 +508,7 @@ export default function App() {
               initial={{ y: 30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.2 }}
-              className="text-lg md:text-xl italic mb-8 max-w-xl text-center"
+              className="text-lg md:text-xl italic mb-10 max-w-xl text-center"
               style={{ color: 'var(--gold-100)', fontFamily: lang === 'ta' ? 'var(--font-tamil)' : 'var(--font-accent)', opacity: 0.8 }}
             >
               {t.tagline}
@@ -519,9 +519,9 @@ export default function App() {
               initial={{ y: 40, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="w-full max-w-2xl mb-8"
+              className="w-full max-w-3xl mb-10"
             >
-              <div className="relative overflow-hidden rounded-lg" style={{ aspectRatio: '16/9' }}>
+              <div className="relative overflow-hidden rounded-lg border" style={{ aspectRatio: '16/9', borderColor: 'rgba(212, 168, 83, 0.15)' }}>
                 <AnimatePresence mode="wait">
                   {featuredProducts.length > 0 && (
                     <motion.div
@@ -538,28 +538,26 @@ export default function App() {
                         alt={lang === 'en' ? featuredProducts[heroIndex].nameEn : featuredProducts[heroIndex].nameTa}
                         className="w-full h-full object-cover"
                       />
-                      {/* Gradient overlay with name & price */}
+                      {/* Gradient overlay with centered name & price */}
                       <div
                         className="absolute inset-0 flex items-end"
-                        style={{ background: 'linear-gradient(to top, rgba(11,7,6,0.85) 0%, transparent 50%)' }}
+                        style={{ background: 'linear-gradient(to top, rgba(11,7,6,0.85) 0%, rgba(11,7,6,0.3) 25%, transparent 50%)' }}
                       >
-                        <div className="p-6 w-full flex justify-between items-end">
-                          <div>
-                            <p
-                              className="text-lg md:text-xl tracking-wider"
-                              style={{ fontFamily: lang === 'ta' ? 'var(--font-tamil)' : 'var(--font-display)', color: 'var(--gold-100)' }}
-                            >
-                              {lang === 'en' ? featuredProducts[heroIndex].nameEn : featuredProducts[heroIndex].nameTa}
-                            </p>
-                            <p className="text-sm mt-1" style={{ color: 'var(--text-secondary)' }}>
-                              {lang === 'en' ? 'Click to view details' : 'விவரங்களைக் காண கிளிக் செய்யவும்'}
-                            </p>
-                          </div>
+                        <div className="px-8 pb-6 w-full text-center">
                           <p
-                            className="text-xl md:text-2xl font-bold"
+                            className="text-xl md:text-2xl tracking-wider mb-1"
+                            style={{ fontFamily: lang === 'ta' ? 'var(--font-tamil)' : 'var(--font-display)', color: 'var(--gold-100)' }}
+                          >
+                            {lang === 'en' ? featuredProducts[heroIndex].nameEn : featuredProducts[heroIndex].nameTa}
+                          </p>
+                          <p
+                            className="text-2xl md:text-3xl font-bold mb-1"
                             style={{ fontFamily: 'var(--font-display)', color: 'var(--gold-300)' }}
                           >
                             {featuredProducts[heroIndex].priceFormatted}
+                          </p>
+                          <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
+                            {lang === 'en' ? 'Click to view details' : 'விவரங்களைக் காண கிளிக் செய்யவும்'}
                           </p>
                         </div>
                       </div>
@@ -569,23 +567,23 @@ export default function App() {
 
                 {/* Carousel arrows */}
                 <button
-                  className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-full backdrop-blur-sm transition-all hover:bg-[rgba(212,168,83,0.2)]"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 p-2.5 rounded-full backdrop-blur-sm transition-all hover:bg-[rgba(212,168,83,0.2)]"
                   style={{ background: 'rgba(0,0,0,0.5)' }}
                   onClick={() => setHeroIndex(prev => (prev - 1 + featuredProducts.length) % featuredProducts.length)}
                 >
-                  <ChevronLeft size={20} style={{ color: 'var(--gold-300)' }} />
+                  <ChevronLeft size={22} style={{ color: 'var(--gold-300)' }} />
                 </button>
                 <button
-                  className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full backdrop-blur-sm transition-all hover:bg-[rgba(212,168,83,0.2)]"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 p-2.5 rounded-full backdrop-blur-sm transition-all hover:bg-[rgba(212,168,83,0.2)]"
                   style={{ background: 'rgba(0,0,0,0.5)' }}
                   onClick={() => setHeroIndex(prev => (prev + 1) % featuredProducts.length)}
                 >
-                  <ChevronRight size={20} style={{ color: 'var(--gold-300)' }} />
+                  <ChevronRight size={22} style={{ color: 'var(--gold-300)' }} />
                 </button>
               </div>
 
               {/* Carousel dots */}
-              <div className="flex gap-2 justify-center mt-4">
+              <div className="flex gap-2.5 justify-center mt-5">
                 {featuredProducts.map((_, i) => (
                   <button
                     key={i}
@@ -601,11 +599,11 @@ export default function App() {
               initial={{ y: 30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.5 }}
-              className="flex flex-wrap gap-4 justify-center"
+              className="flex flex-wrap gap-5 justify-center"
             >
               <button
                 onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}
-                className="px-10 py-4 text-[11px] uppercase tracking-[0.3em] font-bold transition-all hover:scale-105 hover:shadow-lg"
+                className="px-12 py-4 text-[11px] uppercase tracking-[0.3em] font-bold transition-all hover:scale-105 hover:shadow-lg"
                 style={{
                   background: 'linear-gradient(135deg, var(--gold-500), var(--gold-300))',
                   color: 'var(--bg-primary)',
@@ -619,7 +617,7 @@ export default function App() {
                 href={whatsappLink(WHATSAPP_NUMBER, t.whatsapp.message)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-10 py-4 text-[11px] uppercase tracking-[0.3em] font-bold transition-all hover:scale-105 border"
+                className="px-12 py-4 text-[11px] uppercase tracking-[0.3em] font-bold transition-all hover:scale-105 border"
                 style={{
                   borderColor: 'var(--gold-600)',
                   color: 'var(--gold-300)',
@@ -639,7 +637,7 @@ export default function App() {
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.7 }}
-              className="temple-divider w-48 mt-10"
+              className="temple-divider w-48 mt-12"
             >
               <Star size={12} style={{ color: 'var(--gold-500)' }} />
             </motion.div>
@@ -647,8 +645,8 @@ export default function App() {
         </header>
 
         {/* ═══ TRUST BADGES ═══ */}
-        <section className="border-y py-8 px-6" style={{ borderColor: 'rgba(212, 168, 83, 0.1)', background: 'var(--bg-secondary)' }}>
-          <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
+        <section className="border-y py-10 px-6" style={{ borderColor: 'rgba(212, 168, 83, 0.1)', background: 'var(--bg-secondary)' }}>
+          <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
               { icon: <Shield size={22} />, title: t.trust.quality, desc: t.trust.qualityDesc },
               { icon: <RotateCcw size={22} />, title: t.trust.returns, desc: t.trust.returnsDesc },
@@ -679,29 +677,10 @@ export default function App() {
         </section>
 
         {/* ═══ CATEGORIES ═══ */}
-        <section className="py-16 px-6 texture-overlay" style={{ background: 'var(--bg-primary)' }}>
+        <section className="py-12 px-6" style={{ background: 'var(--bg-primary)' }}>
           <div className="max-w-6xl mx-auto">
-            <motion.div
-              initial={{ y: 30, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              className="text-center mb-12"
-            >
-              <p className="text-[11px] tracking-[0.3em] uppercase mb-3" style={{ color: 'var(--gold-500)' }}>
-                {lang === 'en' ? 'Browse By' : 'வகை வாரியாக'}
-              </p>
-              <h3
-                className="text-3xl md:text-4xl tracking-wider mb-2"
-                style={{ fontFamily: 'var(--font-display)', color: 'var(--gold-100)' }}
-              >
-                {t.categories.all}
-              </h3>
-              <div className="temple-divider w-32 mx-auto mt-4">
-                <Star size={10} style={{ color: 'var(--gold-600)' }} />
-              </div>
-            </motion.div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
               {Object.entries(t.categories).map(([key, label], i) => {
                 const isActive = activeCategory === key;
                 return (
@@ -745,39 +724,31 @@ export default function App() {
         </section>
 
         {/* ═══ PRODUCTS GRID ═══ */}
-        <section id="products" className="py-16 px-6" style={{ background: 'var(--bg-primary)' }}>
-          <div className="max-w-6xl mx-auto">
+        <section id="products" className="py-14 px-6" style={{ background: 'var(--bg-primary)' }}>
+          <div className="max-w-7xl mx-auto">
             <motion.div
               initial={{ y: 20, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true }}
-              className="text-center mb-12"
+              className="text-center mb-10"
             >
               <h3
-                className="text-3xl md:text-4xl tracking-wider"
+                className="text-3xl md:text-4xl tracking-wider mb-2"
                 style={{ fontFamily: 'var(--font-display)', color: 'var(--gold-100)' }}
               >
                 {activeCategory === 'all' ? (lang === 'en' ? 'Our Collection' : 'எங்கள் தொகுப்பு') : t.categories[activeCategory as keyof typeof t.categories]}
               </h3>
-              <div className="temple-divider w-32 mx-auto mt-4">
-                <Star size={10} style={{ color: 'var(--gold-600)' }} />
-              </div>
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-sm mt-3"
-                style={{ color: 'var(--text-muted)' }}
-              >
+              <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
                 {filteredProducts.length} {lang === 'en' ? 'pieces' : 'பொருட்கள்'}
-              </motion.p>
+              </p>
             </motion.div>
 
             {isLoading ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
                 {[1, 2, 3, 4, 5, 6].map(i => <SkeletonCard key={i} />)}
               </div>
             ) : (
-              <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
                 <AnimatePresence mode="popLayout">
                   {filteredProducts.map((product, i) => (
                     <motion.div
@@ -1194,9 +1165,9 @@ function ProductCard({
       </div>
 
       {/* Card content */}
-      <div className="p-5">
+      <div className="p-6">
         <h4
-          className="text-lg tracking-wider mb-1 cursor-pointer hover:text-[var(--gold-300)] transition-colors"
+          className="text-base tracking-wider mb-1.5 cursor-pointer hover:text-[var(--gold-300)] transition-colors leading-snug"
           style={{ fontFamily: lang === 'ta' ? 'var(--font-tamil)' : 'var(--font-display)', color: 'var(--gold-100)' }}
           onClick={onToggle}
         >
@@ -1207,7 +1178,7 @@ function ProductCard({
           {t.product.code}: {product.code}
         </p>
 
-        <div className="flex flex-wrap gap-1.5 mb-4">
+        <div className="flex flex-wrap gap-1.5 mb-5">
           {product.tags.slice(0, 4).map(tag => (
             <span key={tag} className="tag-pill">{tag}</span>
           ))}
